@@ -1,0 +1,1251 @@
+# module.gcp.module.k8s.module.model-serving.module.us-central1.google_container_cluster.model-serving:
+resource "google_container_cluster" "model-serving" {
+    cluster_ipv4_cidr                        = "10.60.0.0/14"
+    datapath_provider                        = null
+    default_max_pods_per_node                = 110
+    deletion_protection                      = true
+    description                              = null
+    effective_labels                         = {
+        "cluster"                    = "model-serving"
+        "goog-terraform-provisioned" = "true"
+    }
+    enable_autopilot                         = false
+    enable_cilium_clusterwide_network_policy = false
+    enable_intranode_visibility              = false
+    enable_kubernetes_alpha                  = false
+    enable_l4_ilb_subsetting                 = false
+    enable_legacy_abac                       = false
+    enable_multi_networking                  = false
+    enable_shielded_nodes                    = true
+    enable_tpu                               = false
+    endpoint                                 = "34.123.142.149"
+    id                                       = "projects/voiceai-staging/locations/us-central1/clusters/model-serving"
+    initial_node_count                       = 1
+    label_fingerprint                        = "a561eae6"
+    location                                 = "us-central1"
+    logging_service                          = "logging.googleapis.com/kubernetes"
+    master_version                           = "1.28.15-gke.1020000"
+    min_master_version                       = null
+    monitoring_service                       = "monitoring.googleapis.com/kubernetes"
+    name                                     = "model-serving"
+    network                                  = "projects/voiceai-staging/global/networks/default"
+    networking_mode                          = "VPC_NATIVE"
+    node_locations                           = [
+        "us-central1-b",
+        "us-central1-c",
+        "us-central1-f",
+    ]
+    node_version                             = "1.28.15-gke.1020000"
+    private_ipv6_google_access               = null
+    project                                  = "voiceai-staging"
+    remove_default_node_pool                 = true
+    resource_labels                          = {
+        "cluster" = "model-serving"
+    }
+    self_link                                = "https://container.googleapis.com/v1/projects/voiceai-staging/locations/us-central1/clusters/model-serving"
+    services_ipv4_cidr                       = "10.0.176.0/20"
+    subnetwork                               = "projects/voiceai-staging/regions/us-central1/subnetworks/default"
+    terraform_labels                         = {
+        "cluster"                    = "model-serving"
+        "goog-terraform-provisioned" = "true"
+    }
+    tpu_ipv4_cidr_block                      = null
+
+    addons_config {
+        gce_persistent_disk_csi_driver_config {
+            enabled = true
+        }
+        gcs_fuse_csi_driver_config {
+            enabled = true
+        }
+        horizontal_pod_autoscaling {
+            disabled = true
+        }
+        http_load_balancing {
+            disabled = false
+        }
+        network_policy_config {
+            disabled = true
+        }
+    }
+
+    binary_authorization {
+        enabled         = false
+        evaluation_mode = null
+    }
+
+    cluster_autoscaling {
+        auto_provisioning_locations = []
+        autoscaling_profile         = "BALANCED"
+        enabled                     = false
+    }
+
+    control_plane_endpoints_config {
+        dns_endpoint_config {
+            allow_external_traffic = false
+            endpoint               = "gke-9077f17036b7443c8fafa0c29479578fbcab-397406432431.us-central1.gke.goog"
+        }
+    }
+
+    cost_management_config {
+        enabled = true
+    }
+
+    database_encryption {
+        key_name = null
+        state    = "DECRYPTED"
+    }
+
+    default_snat_status {
+        disabled = false
+    }
+
+    fleet {
+        membership          = "//gkehub.googleapis.com/projects/397406432431/locations/us-central1/memberships/model-serving-us-central1"
+        membership_id       = "model-serving-us-central1"
+        membership_location = "us-central1"
+        pre_registered      = true
+        project             = "voiceai-staging"
+    }
+
+    gateway_api_config {
+        channel = "CHANNEL_STANDARD"
+    }
+
+    ip_allocation_policy {
+        cluster_ipv4_cidr_block       = "10.60.0.0/14"
+        cluster_secondary_range_name  = "gke-model-serving-pods-9077f170"
+        services_ipv4_cidr_block      = "10.0.176.0/20"
+        services_secondary_range_name = "gke-model-serving-services-9077f170"
+        stack_type                    = "IPV4"
+
+        pod_cidr_overprovision_config {
+            disabled = false
+        }
+    }
+
+    logging_config {
+        enable_components = [
+            "SYSTEM_COMPONENTS",
+        ]
+    }
+
+    maintenance_policy {
+        daily_maintenance_window {
+            duration   = "PT4H0M0S"
+            start_time = "12:00"
+        }
+    }
+
+    master_auth {
+        client_certificate     = null
+        client_key             = (sensitive value)
+        cluster_ca_certificate = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUVMVENDQXBXZ0F3SUJBZ0lSQUtRSmMvK212SFdRZ2kzbXFXaGk5VkF3RFFZSktvWklodmNOQVFFTEJRQXcKTHpFdE1Dc0dBMVVFQXhNa01qUXpaR000TUdZdE4yVTRaUzAwWXpRMExUazJZall0WWpCaVlqRmhOakZtTW1GawpNQ0FYRFRJMU1ERXdPREUzTWpNME5sb1lEekl3TlRVd01UQXhNVGd5TXpRMldqQXZNUzB3S3dZRFZRUURFeVF5Ck5ETmtZemd3WmkwM1pUaGxMVFJqTkRRdE9UWmlOaTFpTUdKaU1XRTJNV1l5WVdRd2dnR2lNQTBHQ1NxR1NJYjMKRFFFQkFRVUFBNElCandBd2dnR0tBb0lCZ1FERURkcE5rL0NTN3h4YVNOZVFncGVRckRDVkhnNVpMZVlIY2JjNgp0dDVRZCtkMXhPb1JHZjhUUkdKZzhPVWkvNUYwMDE4cE1EU082QUtYbkV5bnlyNk9TTEIydVFNaGFSbFNYUDRPCmFNeml5VGxWZzNuSERIZUU5WldmaC9aa08vdFJnOFZwZ0hpaHlKaGJWODJVSG1QcXJyMGVLcjZ4cS9tazl6bzEKd2tSL0tRY0Y4bThwSk5XUHphZEJ4RDBULzN3Rk5sM3JWelVncTR1NGsxUkxHRHpPNHFOT2p4ODVsVURPbUtrSApLdklnY2tCK3BQdXcwS3lKZ3Q2TzFSc1AyVXRIdjNjeHRYWk9GRTdlYVZuVWdjL2pUSGRSZlpnUHJUbThjb1ZNClVONXh2TVkxZWVNT1ZVODJZdVN2VUlHcXBFZkE2OEVNZEx6cmNpZU11RjRHVzIrbVQwbnhDQ2Q0TnI4MGVEbGsKM3dmbjJpeWo5aG8yeFBCRzVWQ052UUpHWVlUeGhwY0VjTzBHRDJPUUJGdVR3Q1ZuZmtiL2FsMmRBVVpsT0s2NAo2dmdRaFpZRGNxbTR5Z0FhVzNRa1dRZVBEUkxxSW1vbXdNSGgxVkJYNXh2YXlxaVhpVExXR05hV1FFbkFlcFpvCkFmcXppZWJXblpYTUJGS2Y0WEpMbGlCVjlHOENBd0VBQWFOQ01FQXdEZ1lEVlIwUEFRSC9CQVFEQWdJRU1BOEcKQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGSW5SeGR3T3JqdFZWR1dNM0l2OXk3cStmalcxTUEwRwpDU3FHU0liM0RRRUJDd1VBQTRJQmdRQkpLV3NXRTI1dzZqMjdrdVFOMXlUUW1xL2xLcGkvd201NVRPcnhzNExnCmxMai9nWi91V1FoTE9LcTdPT09TVmhNMzZWTVhtc1Y0Y2V6ZVd3dnVReHd6M3J2NXZKdXlVVTQyM1E0ZGpSUVYKWXZoUGJyRHRrNURVUjNEdVJPWTIxYlhvaHU2VlpSdDZSV2FUZ042T0VsN3pBU1RHdkRNTXVCZGxHeHNXRmJPOApLUThmZ1VMYTNKRThucXk1YlVEUWNmSDJTTFV6ZjFvdU5pcVFITTZoV3loekYyOWJ3RnliVkt1cWV6U2RwOHRQCld3SXNac3g4dms5MExsTXV6RzVJVmg3bEpXMHJJUU1RRHJNR3dQOTBjQ0ZpWDlta2FncjBMeWlsVnpTT3AydE0KTEs0YUZkOXRuT0FrR0t6c2MwT01qNnpFL1RncVJ0U0p4VExRbWxYTzBwREhGZDdDRWRyMXlJNVFiQ21pand1Zwpzem4xRGl1aldNZDIrNXZBcGVDZVRWcDd4QWd5SWhhYUxaVkh4dDV3a2RvMU9wY1pRTUVUZHlpUlA4SUtZZ2krCjI2UG41MmhpamNHYUF4NTN5ZUl4TTZpVEh3dDVHK0hWYktLaVI3T25PdGl5VW5DcithTml5TVNPUG1raGpFZGIKL2VWdWNocE44dXN6VWtUaElMT05QaUU9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
+
+        client_certificate_config {
+            issue_client_certificate = false
+        }
+    }
+
+    master_authorized_networks_config {
+        gcp_public_cidrs_access_enabled      = true
+        private_endpoint_enforcement_enabled = false
+
+        cidr_blocks {
+            cidr_block   = "0.0.0.0/0"
+            display_name = "All Addresses"
+        }
+    }
+
+    monitoring_config {
+        enable_components = [
+            "SYSTEM_COMPONENTS",
+        ]
+
+        advanced_datapath_observability_config {
+            enable_metrics = false
+            enable_relay   = false
+        }
+
+        managed_prometheus {
+            enabled = false
+        }
+    }
+
+    network_policy {
+        enabled  = false
+        provider = "PROVIDER_UNSPECIFIED"
+    }
+
+    node_config {
+        boot_disk_kms_key           = null
+        disk_size_gb                = 100
+        disk_type                   = "pd-balanced"
+        effective_taints            = []
+        enable_confidential_storage = false
+        image_type                  = "COS_CONTAINERD"
+        labels                      = {
+            "cluster"   = "model-serving"
+            "component" = "ai"
+            "feature"   = "external"
+            "team"      = "ai_eng"
+        }
+        local_ssd_count             = 0
+        logging_variant             = "DEFAULT"
+        machine_type                = "c3-highcpu-22"
+        metadata                    = {
+            "disable-legacy-endpoints" = "true"
+        }
+        min_cpu_platform            = null
+        node_group                  = null
+        oauth_scopes                = [
+            "https://www.googleapis.com/auth/cloud-platform",
+        ]
+        preemptible                 = true
+        resource_labels             = {}
+        resource_manager_tags       = {}
+        service_account             = "cluster-model-serving@voiceai-staging.iam.gserviceaccount.com"
+        spot                        = false
+        storage_pools               = []
+        tags                        = []
+
+        kubelet_config {
+            cpu_cfs_quota                          = false
+            cpu_cfs_quota_period                   = null
+            cpu_manager_policy                     = null
+            insecure_kubelet_readonly_port_enabled = "TRUE"
+            pod_pids_limit                         = 0
+        }
+
+        shielded_instance_config {
+            enable_integrity_monitoring = true
+            enable_secure_boot          = false
+        }
+
+        workload_metadata_config {
+            mode = "GKE_METADATA"
+        }
+    }
+
+    node_pool {
+        initial_node_count          = 1
+        instance_group_urls         = [
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroupManagers/gke-model-serving-c3-highcpu-22-preem-c2d97c2f-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroupManagers/gke-model-serving-c3-highcpu-22-preem-22583924-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroupManagers/gke-model-serving-c3-highcpu-22-preem-53f6ff7e-grp",
+        ]
+        managed_instance_group_urls = [
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroups/gke-model-serving-c3-highcpu-22-preem-c2d97c2f-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroups/gke-model-serving-c3-highcpu-22-preem-22583924-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroups/gke-model-serving-c3-highcpu-22-preem-53f6ff7e-grp",
+        ]
+        max_pods_per_node           = 110
+        name                        = "c3-highcpu-22-preempt"
+        name_prefix                 = null
+        node_count                  = 0
+        node_locations              = [
+            "us-central1-a",
+            "us-central1-b",
+            "us-central1-c",
+        ]
+        version                     = "1.28.15-gke.1020000"
+
+        autoscaling {
+            location_policy      = "ANY"
+            max_node_count       = 1
+            min_node_count       = 0
+            total_max_node_count = 0
+            total_min_node_count = 0
+        }
+
+        management {
+            auto_repair  = true
+            auto_upgrade = false
+        }
+
+        network_config {
+            create_pod_range     = false
+            enable_private_nodes = false
+            pod_ipv4_cidr_block  = "10.60.0.0/14"
+            pod_range            = "gke-model-serving-pods-9077f170"
+        }
+
+        node_config {
+            boot_disk_kms_key           = null
+            disk_size_gb                = 100
+            disk_type                   = "pd-balanced"
+            effective_taints            = []
+            enable_confidential_storage = false
+            image_type                  = "COS_CONTAINERD"
+            labels                      = {
+                "cluster"   = "model-serving"
+                "component" = "ai"
+                "feature"   = "external"
+                "team"      = "ai_eng"
+            }
+            local_ssd_count             = 0
+            logging_variant             = "DEFAULT"
+            machine_type                = "c3-highcpu-22"
+            metadata                    = {
+                "disable-legacy-endpoints" = "true"
+            }
+            min_cpu_platform            = null
+            node_group                  = null
+            oauth_scopes                = [
+                "https://www.googleapis.com/auth/cloud-platform",
+            ]
+            preemptible                 = true
+            resource_labels             = {}
+            resource_manager_tags       = {}
+            service_account             = "cluster-model-serving@voiceai-staging.iam.gserviceaccount.com"
+            spot                        = false
+            storage_pools               = []
+            tags                        = []
+
+            kubelet_config {
+                cpu_cfs_quota                          = false
+                cpu_cfs_quota_period                   = null
+                cpu_manager_policy                     = null
+                insecure_kubelet_readonly_port_enabled = "TRUE"
+                pod_pids_limit                         = 0
+            }
+
+            shielded_instance_config {
+                enable_integrity_monitoring = true
+                enable_secure_boot          = false
+            }
+
+            workload_metadata_config {
+                mode = "GKE_METADATA"
+            }
+        }
+
+        upgrade_settings {
+            max_surge       = 1
+            max_unavailable = 0
+            strategy        = "SURGE"
+        }
+    }
+    node_pool {
+        initial_node_count          = 1
+        instance_group_urls         = [
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroupManagers/gke-model-serving-n1-standard-4-t4-no-f115ac3a-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroupManagers/gke-model-serving-n1-standard-4-t4-no-8bf85748-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroupManagers/gke-model-serving-n1-standard-4-t4-no-7e29bc63-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-f/instanceGroupManagers/gke-model-serving-n1-standard-4-t4-no-0aa27abf-grp",
+        ]
+        managed_instance_group_urls = [
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroups/gke-model-serving-n1-standard-4-t4-no-f115ac3a-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroups/gke-model-serving-n1-standard-4-t4-no-8bf85748-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroups/gke-model-serving-n1-standard-4-t4-no-7e29bc63-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-f/instanceGroups/gke-model-serving-n1-standard-4-t4-no-0aa27abf-grp",
+        ]
+        max_pods_per_node           = 110
+        name                        = "n1-standard-4-t4-nonpreempt"
+        name_prefix                 = null
+        node_count                  = 0
+        node_locations              = [
+            "us-central1-a",
+            "us-central1-b",
+            "us-central1-c",
+            "us-central1-f",
+        ]
+        version                     = "1.28.15-gke.1020000"
+
+        autoscaling {
+            location_policy      = "BALANCED"
+            max_node_count       = 1
+            min_node_count       = 0
+            total_max_node_count = 0
+            total_min_node_count = 0
+        }
+
+        management {
+            auto_repair  = true
+            auto_upgrade = false
+        }
+
+        network_config {
+            create_pod_range     = false
+            enable_private_nodes = false
+            pod_ipv4_cidr_block  = "10.60.0.0/14"
+            pod_range            = "gke-model-serving-pods-9077f170"
+        }
+
+        node_config {
+            boot_disk_kms_key           = null
+            disk_size_gb                = 100
+            disk_type                   = "pd-balanced"
+            effective_taints            = [
+                {
+                    effect = "NO_SCHEDULE"
+                    key    = "nvidia.com/gpu"
+                    value  = "present"
+                },
+            ]
+            enable_confidential_storage = false
+            image_type                  = "COS_CONTAINERD"
+            labels                      = {
+                "cluster"   = "model-serving"
+                "component" = "ai"
+                "feature"   = "external"
+                "team"      = "ai_eng"
+            }
+            local_ssd_count             = 0
+            logging_variant             = "DEFAULT"
+            machine_type                = "n1-standard-4"
+            metadata                    = {
+                "disable-legacy-endpoints" = "true"
+            }
+            min_cpu_platform            = null
+            node_group                  = null
+            oauth_scopes                = [
+                "https://www.googleapis.com/auth/cloud-platform",
+            ]
+            preemptible                 = false
+            resource_labels             = {}
+            resource_manager_tags       = {}
+            service_account             = "cluster-model-serving@voiceai-staging.iam.gserviceaccount.com"
+            spot                        = false
+            storage_pools               = []
+            tags                        = []
+
+            guest_accelerator {
+                count              = 1
+                gpu_partition_size = null
+                type               = "nvidia-tesla-t4"
+            }
+
+            kubelet_config {
+                cpu_cfs_quota                          = false
+                cpu_cfs_quota_period                   = null
+                cpu_manager_policy                     = null
+                insecure_kubelet_readonly_port_enabled = "TRUE"
+                pod_pids_limit                         = 0
+            }
+
+            shielded_instance_config {
+                enable_integrity_monitoring = true
+                enable_secure_boot          = false
+            }
+
+            workload_metadata_config {
+                mode = "GKE_METADATA"
+            }
+        }
+
+        upgrade_settings {
+            max_surge       = 1
+            max_unavailable = 0
+            strategy        = "SURGE"
+        }
+    }
+    node_pool {
+        initial_node_count          = 1
+        instance_group_urls         = [
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroupManagers/gke-model-serving-g2-standard-4-preem-1d3df81a-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroupManagers/gke-model-serving-g2-standard-4-preem-c2ba4109-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroupManagers/gke-model-serving-g2-standard-4-preem-952c9f5c-grp",
+        ]
+        managed_instance_group_urls = [
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroups/gke-model-serving-g2-standard-4-preem-1d3df81a-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroups/gke-model-serving-g2-standard-4-preem-c2ba4109-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroups/gke-model-serving-g2-standard-4-preem-952c9f5c-grp",
+        ]
+        max_pods_per_node           = 110
+        name                        = "g2-standard-4-preempt"
+        name_prefix                 = null
+        node_count                  = 0
+        node_locations              = [
+            "us-central1-a",
+            "us-central1-b",
+            "us-central1-c",
+        ]
+        version                     = "1.28.15-gke.1020000"
+
+        autoscaling {
+            location_policy      = "BALANCED"
+            max_node_count       = 1
+            min_node_count       = 0
+            total_max_node_count = 0
+            total_min_node_count = 0
+        }
+
+        management {
+            auto_repair  = true
+            auto_upgrade = false
+        }
+
+        network_config {
+            create_pod_range     = false
+            enable_private_nodes = false
+            pod_ipv4_cidr_block  = "10.60.0.0/14"
+            pod_range            = "gke-model-serving-pods-9077f170"
+        }
+
+        node_config {
+            boot_disk_kms_key           = null
+            disk_size_gb                = 100
+            disk_type                   = "pd-balanced"
+            effective_taints            = [
+                {
+                    effect = "NO_SCHEDULE"
+                    key    = "nvidia.com/gpu"
+                    value  = "present"
+                },
+            ]
+            enable_confidential_storage = false
+            image_type                  = "COS_CONTAINERD"
+            labels                      = {
+                "cluster"   = "model-serving"
+                "component" = "ai"
+                "feature"   = "external"
+                "team"      = "ai_eng"
+            }
+            local_ssd_count             = 0
+            logging_variant             = "DEFAULT"
+            machine_type                = "g2-standard-4"
+            metadata                    = {
+                "disable-legacy-endpoints" = "true"
+            }
+            min_cpu_platform            = null
+            node_group                  = null
+            oauth_scopes                = [
+                "https://www.googleapis.com/auth/cloud-platform",
+            ]
+            preemptible                 = false
+            resource_labels             = {}
+            resource_manager_tags       = {}
+            service_account             = "cluster-model-serving@voiceai-staging.iam.gserviceaccount.com"
+            spot                        = false
+            storage_pools               = []
+            tags                        = []
+
+            guest_accelerator {
+                count              = 1
+                gpu_partition_size = null
+                type               = "nvidia-l4"
+            }
+
+            kubelet_config {
+                cpu_cfs_quota                          = false
+                cpu_cfs_quota_period                   = null
+                cpu_manager_policy                     = null
+                insecure_kubelet_readonly_port_enabled = "TRUE"
+                pod_pids_limit                         = 0
+            }
+
+            shielded_instance_config {
+                enable_integrity_monitoring = true
+                enable_secure_boot          = false
+            }
+
+            workload_metadata_config {
+                mode = "GKE_METADATA"
+            }
+        }
+
+        upgrade_settings {
+            max_surge       = 1
+            max_unavailable = 0
+            strategy        = "SURGE"
+        }
+    }
+    node_pool {
+        initial_node_count          = 1
+        instance_group_urls         = [
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroupManagers/gke-model-serving-n1-standard-4-t4-pr-e9504ce3-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroupManagers/gke-model-serving-n1-standard-4-t4-pr-8eed27a0-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroupManagers/gke-model-serving-n1-standard-4-t4-pr-3c3165b3-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-f/instanceGroupManagers/gke-model-serving-n1-standard-4-t4-pr-5970bb86-grp",
+        ]
+        managed_instance_group_urls = [
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroups/gke-model-serving-n1-standard-4-t4-pr-e9504ce3-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroups/gke-model-serving-n1-standard-4-t4-pr-8eed27a0-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroups/gke-model-serving-n1-standard-4-t4-pr-3c3165b3-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-f/instanceGroups/gke-model-serving-n1-standard-4-t4-pr-5970bb86-grp",
+        ]
+        max_pods_per_node           = 110
+        name                        = "n1-standard-4-t4-preempt"
+        name_prefix                 = null
+        node_count                  = 0
+        node_locations              = [
+            "us-central1-a",
+            "us-central1-b",
+            "us-central1-c",
+            "us-central1-f",
+        ]
+        version                     = "1.28.15-gke.1020000"
+
+        autoscaling {
+            location_policy      = "ANY"
+            max_node_count       = 1
+            min_node_count       = 0
+            total_max_node_count = 0
+            total_min_node_count = 0
+        }
+
+        management {
+            auto_repair  = true
+            auto_upgrade = false
+        }
+
+        network_config {
+            create_pod_range     = false
+            enable_private_nodes = false
+            pod_ipv4_cidr_block  = "10.60.0.0/14"
+            pod_range            = "gke-model-serving-pods-9077f170"
+        }
+
+        node_config {
+            boot_disk_kms_key           = null
+            disk_size_gb                = 100
+            disk_type                   = "pd-balanced"
+            effective_taints            = [
+                {
+                    effect = "NO_SCHEDULE"
+                    key    = "nvidia.com/gpu"
+                    value  = "present"
+                },
+            ]
+            enable_confidential_storage = false
+            image_type                  = "COS_CONTAINERD"
+            labels                      = {
+                "cluster"   = "model-serving"
+                "component" = "ai"
+                "feature"   = "external"
+                "team"      = "ai_eng"
+            }
+            local_ssd_count             = 0
+            logging_variant             = "DEFAULT"
+            machine_type                = "n1-standard-4"
+            metadata                    = {
+                "disable-legacy-endpoints" = "true"
+            }
+            min_cpu_platform            = null
+            node_group                  = null
+            oauth_scopes                = [
+                "https://www.googleapis.com/auth/cloud-platform",
+            ]
+            preemptible                 = true
+            resource_labels             = {}
+            resource_manager_tags       = {}
+            service_account             = "cluster-model-serving@voiceai-staging.iam.gserviceaccount.com"
+            spot                        = false
+            storage_pools               = []
+            tags                        = []
+
+            guest_accelerator {
+                count              = 1
+                gpu_partition_size = null
+                type               = "nvidia-tesla-t4"
+            }
+
+            kubelet_config {
+                cpu_cfs_quota                          = false
+                cpu_cfs_quota_period                   = null
+                cpu_manager_policy                     = null
+                insecure_kubelet_readonly_port_enabled = "TRUE"
+                pod_pids_limit                         = 0
+            }
+
+            shielded_instance_config {
+                enable_integrity_monitoring = true
+                enable_secure_boot          = false
+            }
+
+            workload_metadata_config {
+                mode = "GKE_METADATA"
+            }
+        }
+
+        upgrade_settings {
+            max_surge       = 1
+            max_unavailable = 0
+            strategy        = "SURGE"
+        }
+    }
+    node_pool {
+        initial_node_count          = 1
+        instance_group_urls         = [
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroupManagers/gke-model-serving-g2-preempt-8858e2ea-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroupManagers/gke-model-serving-g2-preempt-8f88fc3f-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroupManagers/gke-model-serving-g2-preempt-02eab0ce-grp",
+        ]
+        managed_instance_group_urls = [
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroups/gke-model-serving-g2-preempt-8858e2ea-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroups/gke-model-serving-g2-preempt-8f88fc3f-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroups/gke-model-serving-g2-preempt-02eab0ce-grp",
+        ]
+        max_pods_per_node           = 110
+        name                        = "g2-preempt"
+        name_prefix                 = null
+        node_count                  = 0
+        node_locations              = [
+            "us-central1-a",
+            "us-central1-b",
+            "us-central1-c",
+        ]
+        version                     = "1.28.15-gke.1020000"
+
+        autoscaling {
+            location_policy      = "ANY"
+            max_node_count       = 1
+            min_node_count       = 0
+            total_max_node_count = 0
+            total_min_node_count = 0
+        }
+
+        management {
+            auto_repair  = true
+            auto_upgrade = false
+        }
+
+        network_config {
+            create_pod_range     = false
+            enable_private_nodes = false
+            pod_ipv4_cidr_block  = "10.60.0.0/14"
+            pod_range            = "gke-model-serving-pods-9077f170"
+        }
+
+        node_config {
+            boot_disk_kms_key           = null
+            disk_size_gb                = 100
+            disk_type                   = "pd-balanced"
+            effective_taints            = [
+                {
+                    effect = "NO_SCHEDULE"
+                    key    = "nvidia.com/gpu"
+                    value  = "present"
+                },
+            ]
+            enable_confidential_storage = false
+            image_type                  = "COS_CONTAINERD"
+            labels                      = {
+                "cluster"   = "model-serving"
+                "component" = "ai"
+                "feature"   = "external"
+                "team"      = "ai_eng"
+            }
+            local_ssd_count             = 0
+            logging_variant             = "DEFAULT"
+            machine_type                = "g2-standard-24"
+            metadata                    = {
+                "disable-legacy-endpoints" = "true"
+            }
+            min_cpu_platform            = null
+            node_group                  = null
+            oauth_scopes                = [
+                "https://www.googleapis.com/auth/cloud-platform",
+            ]
+            preemptible                 = true
+            resource_labels             = {}
+            resource_manager_tags       = {}
+            service_account             = "cluster-model-serving@voiceai-staging.iam.gserviceaccount.com"
+            spot                        = false
+            storage_pools               = []
+            tags                        = []
+
+            guest_accelerator {
+                count              = 2
+                gpu_partition_size = null
+                type               = "nvidia-l4"
+            }
+
+            kubelet_config {
+                cpu_cfs_quota                          = false
+                cpu_cfs_quota_period                   = null
+                cpu_manager_policy                     = null
+                insecure_kubelet_readonly_port_enabled = "TRUE"
+                pod_pids_limit                         = 0
+            }
+
+            shielded_instance_config {
+                enable_integrity_monitoring = true
+                enable_secure_boot          = false
+            }
+
+            workload_metadata_config {
+                mode = "GKE_METADATA"
+            }
+        }
+
+        upgrade_settings {
+            max_surge       = 1
+            max_unavailable = 0
+            strategy        = "SURGE"
+        }
+    }
+    node_pool {
+        initial_node_count          = 1
+        instance_group_urls         = [
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroupManagers/gke-model-serving-n2d-preempt-4-332a5f7b-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroupManagers/gke-model-serving-n2d-preempt-4-e56aa049-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroupManagers/gke-model-serving-n2d-preempt-4-58f1582e-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-f/instanceGroupManagers/gke-model-serving-n2d-preempt-4-dff58a6e-grp",
+        ]
+        managed_instance_group_urls = [
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroups/gke-model-serving-n2d-preempt-4-332a5f7b-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroups/gke-model-serving-n2d-preempt-4-e56aa049-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroups/gke-model-serving-n2d-preempt-4-58f1582e-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-f/instanceGroups/gke-model-serving-n2d-preempt-4-dff58a6e-grp",
+        ]
+        max_pods_per_node           = 110
+        name                        = "n2d-preempt-4"
+        name_prefix                 = null
+        node_count                  = 0
+        node_locations              = [
+            "us-central1-a",
+            "us-central1-b",
+            "us-central1-c",
+            "us-central1-f",
+        ]
+        version                     = "1.28.15-gke.1020000"
+
+        autoscaling {
+            location_policy      = "ANY"
+            max_node_count       = 3
+            min_node_count       = 0
+            total_max_node_count = 0
+            total_min_node_count = 0
+        }
+
+        management {
+            auto_repair  = true
+            auto_upgrade = false
+        }
+
+        network_config {
+            create_pod_range     = false
+            enable_private_nodes = false
+            pod_ipv4_cidr_block  = "10.60.0.0/14"
+            pod_range            = "gke-model-serving-pods-9077f170"
+        }
+
+        node_config {
+            boot_disk_kms_key           = null
+            disk_size_gb                = 100
+            disk_type                   = "pd-balanced"
+            effective_taints            = []
+            enable_confidential_storage = false
+            image_type                  = "COS_CONTAINERD"
+            labels                      = {
+                "cluster"   = "model-serving"
+                "component" = "ai"
+                "feature"   = "external"
+                "team"      = "ai_eng"
+            }
+            local_ssd_count             = 0
+            logging_variant             = "DEFAULT"
+            machine_type                = "n2d-standard-4"
+            metadata                    = {
+                "disable-legacy-endpoints" = "true"
+            }
+            min_cpu_platform            = null
+            node_group                  = null
+            oauth_scopes                = [
+                "https://www.googleapis.com/auth/cloud-platform",
+            ]
+            preemptible                 = true
+            resource_labels             = {}
+            resource_manager_tags       = {}
+            service_account             = "cluster-model-serving@voiceai-staging.iam.gserviceaccount.com"
+            spot                        = false
+            storage_pools               = []
+            tags                        = []
+
+            kubelet_config {
+                cpu_cfs_quota                          = false
+                cpu_cfs_quota_period                   = null
+                cpu_manager_policy                     = null
+                insecure_kubelet_readonly_port_enabled = "TRUE"
+                pod_pids_limit                         = 0
+            }
+
+            shielded_instance_config {
+                enable_integrity_monitoring = true
+                enable_secure_boot          = false
+            }
+
+            workload_metadata_config {
+                mode = "GKE_METADATA"
+            }
+        }
+
+        upgrade_settings {
+            max_surge       = 1
+            max_unavailable = 0
+            strategy        = "SURGE"
+        }
+    }
+    node_pool {
+        initial_node_count          = 1
+        instance_group_urls         = [
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroupManagers/gke-model-serving-g2-standard-4-nonpr-ce0b5cb3-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroupManagers/gke-model-serving-g2-standard-4-nonpr-015517ee-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroupManagers/gke-model-serving-g2-standard-4-nonpr-f6847575-grp",
+        ]
+        managed_instance_group_urls = [
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroups/gke-model-serving-g2-standard-4-nonpr-ce0b5cb3-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroups/gke-model-serving-g2-standard-4-nonpr-015517ee-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroups/gke-model-serving-g2-standard-4-nonpr-f6847575-grp",
+        ]
+        max_pods_per_node           = 110
+        name                        = "g2-standard-4-nonpreempt"
+        name_prefix                 = null
+        node_count                  = 0
+        node_locations              = [
+            "us-central1-a",
+            "us-central1-b",
+            "us-central1-c",
+        ]
+        version                     = "1.28.15-gke.1020000"
+
+        autoscaling {
+            location_policy      = "BALANCED"
+            max_node_count       = 1
+            min_node_count       = 0
+            total_max_node_count = 0
+            total_min_node_count = 0
+        }
+
+        management {
+            auto_repair  = true
+            auto_upgrade = false
+        }
+
+        network_config {
+            create_pod_range     = false
+            enable_private_nodes = false
+            pod_ipv4_cidr_block  = "10.60.0.0/14"
+            pod_range            = "gke-model-serving-pods-9077f170"
+        }
+
+        node_config {
+            boot_disk_kms_key           = null
+            disk_size_gb                = 100
+            disk_type                   = "pd-balanced"
+            effective_taints            = [
+                {
+                    effect = "NO_SCHEDULE"
+                    key    = "nvidia.com/gpu"
+                    value  = "present"
+                },
+            ]
+            enable_confidential_storage = false
+            image_type                  = "COS_CONTAINERD"
+            labels                      = {
+                "cluster"   = "model-serving"
+                "component" = "ai"
+                "feature"   = "external"
+                "team"      = "ai_eng"
+            }
+            local_ssd_count             = 0
+            logging_variant             = "DEFAULT"
+            machine_type                = "g2-standard-4"
+            metadata                    = {
+                "disable-legacy-endpoints" = "true"
+            }
+            min_cpu_platform            = null
+            node_group                  = null
+            oauth_scopes                = [
+                "https://www.googleapis.com/auth/cloud-platform",
+            ]
+            preemptible                 = false
+            resource_labels             = {}
+            resource_manager_tags       = {}
+            service_account             = "cluster-model-serving@voiceai-staging.iam.gserviceaccount.com"
+            spot                        = false
+            storage_pools               = []
+            tags                        = []
+
+            guest_accelerator {
+                count              = 1
+                gpu_partition_size = null
+                type               = "nvidia-l4"
+            }
+
+            kubelet_config {
+                cpu_cfs_quota                          = false
+                cpu_cfs_quota_period                   = null
+                cpu_manager_policy                     = null
+                insecure_kubelet_readonly_port_enabled = "TRUE"
+                pod_pids_limit                         = 0
+            }
+
+            shielded_instance_config {
+                enable_integrity_monitoring = true
+                enable_secure_boot          = false
+            }
+
+            workload_metadata_config {
+                mode = "GKE_METADATA"
+            }
+        }
+
+        upgrade_settings {
+            max_surge       = 1
+            max_unavailable = 0
+            strategy        = "SURGE"
+        }
+    }
+    node_pool {
+        initial_node_count          = 1
+        instance_group_urls         = [
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroupManagers/gke-model-serving-g2-nonpreempt-bf578ba6-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroupManagers/gke-model-serving-g2-nonpreempt-e94984fe-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroupManagers/gke-model-serving-g2-nonpreempt-5d24ccbe-grp",
+        ]
+        managed_instance_group_urls = [
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroups/gke-model-serving-g2-nonpreempt-bf578ba6-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroups/gke-model-serving-g2-nonpreempt-e94984fe-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroups/gke-model-serving-g2-nonpreempt-5d24ccbe-grp",
+        ]
+        max_pods_per_node           = 110
+        name                        = "g2-nonpreempt"
+        name_prefix                 = null
+        node_count                  = 0
+        node_locations              = [
+            "us-central1-a",
+            "us-central1-b",
+            "us-central1-c",
+        ]
+        version                     = "1.28.15-gke.1020000"
+
+        autoscaling {
+            location_policy      = "BALANCED"
+            max_node_count       = 1
+            min_node_count       = 0
+            total_max_node_count = 0
+            total_min_node_count = 0
+        }
+
+        management {
+            auto_repair  = true
+            auto_upgrade = false
+        }
+
+        network_config {
+            create_pod_range     = false
+            enable_private_nodes = false
+            pod_ipv4_cidr_block  = "10.60.0.0/14"
+            pod_range            = "gke-model-serving-pods-9077f170"
+        }
+
+        node_config {
+            boot_disk_kms_key           = null
+            disk_size_gb                = 100
+            disk_type                   = "pd-balanced"
+            effective_taints            = [
+                {
+                    effect = "NO_SCHEDULE"
+                    key    = "nvidia.com/gpu"
+                    value  = "present"
+                },
+            ]
+            enable_confidential_storage = false
+            image_type                  = "COS_CONTAINERD"
+            labels                      = {
+                "cluster"   = "model-serving"
+                "component" = "ai"
+                "feature"   = "external"
+                "team"      = "ai_eng"
+            }
+            local_ssd_count             = 0
+            logging_variant             = "DEFAULT"
+            machine_type                = "g2-standard-24"
+            metadata                    = {
+                "disable-legacy-endpoints" = "true"
+            }
+            min_cpu_platform            = null
+            node_group                  = null
+            oauth_scopes                = [
+                "https://www.googleapis.com/auth/cloud-platform",
+            ]
+            preemptible                 = false
+            resource_labels             = {}
+            resource_manager_tags       = {}
+            service_account             = "cluster-model-serving@voiceai-staging.iam.gserviceaccount.com"
+            spot                        = false
+            storage_pools               = []
+            tags                        = []
+
+            guest_accelerator {
+                count              = 2
+                gpu_partition_size = null
+                type               = "nvidia-l4"
+            }
+
+            kubelet_config {
+                cpu_cfs_quota                          = false
+                cpu_cfs_quota_period                   = null
+                cpu_manager_policy                     = null
+                insecure_kubelet_readonly_port_enabled = "TRUE"
+                pod_pids_limit                         = 0
+            }
+
+            shielded_instance_config {
+                enable_integrity_monitoring = true
+                enable_secure_boot          = false
+            }
+
+            workload_metadata_config {
+                mode = "GKE_METADATA"
+            }
+        }
+
+        upgrade_settings {
+            max_surge       = 1
+            max_unavailable = 0
+            strategy        = "SURGE"
+        }
+    }
+    node_pool {
+        initial_node_count          = 1
+        instance_group_urls         = [
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroupManagers/gke-model-serving-c3-highcpu-22-nonpr-d12e0481-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroupManagers/gke-model-serving-c3-highcpu-22-nonpr-3fd956e9-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroupManagers/gke-model-serving-c3-highcpu-22-nonpr-18924f65-grp",
+        ]
+        managed_instance_group_urls = [
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroups/gke-model-serving-c3-highcpu-22-nonpr-d12e0481-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroups/gke-model-serving-c3-highcpu-22-nonpr-3fd956e9-grp",
+            "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroups/gke-model-serving-c3-highcpu-22-nonpr-18924f65-grp",
+        ]
+        max_pods_per_node           = 110
+        name                        = "c3-highcpu-22-nonpreempt"
+        name_prefix                 = null
+        node_count                  = 0
+        node_locations              = [
+            "us-central1-a",
+            "us-central1-b",
+            "us-central1-c",
+        ]
+        version                     = "1.28.15-gke.1020000"
+
+        autoscaling {
+            location_policy      = "BALANCED"
+            max_node_count       = 1
+            min_node_count       = 0
+            total_max_node_count = 0
+            total_min_node_count = 0
+        }
+
+        management {
+            auto_repair  = true
+            auto_upgrade = false
+        }
+
+        network_config {
+            create_pod_range     = false
+            enable_private_nodes = false
+            pod_ipv4_cidr_block  = "10.60.0.0/14"
+            pod_range            = "gke-model-serving-pods-9077f170"
+        }
+
+        node_config {
+            boot_disk_kms_key           = null
+            disk_size_gb                = 100
+            disk_type                   = "pd-balanced"
+            effective_taints            = []
+            enable_confidential_storage = false
+            image_type                  = "COS_CONTAINERD"
+            labels                      = {
+                "cluster"   = "model-serving"
+                "component" = "ai"
+                "feature"   = "external"
+                "team"      = "ai_eng"
+            }
+            local_ssd_count             = 0
+            logging_variant             = "DEFAULT"
+            machine_type                = "c3-highcpu-22"
+            metadata                    = {
+                "disable-legacy-endpoints" = "true"
+            }
+            min_cpu_platform            = null
+            node_group                  = null
+            oauth_scopes                = [
+                "https://www.googleapis.com/auth/cloud-platform",
+            ]
+            preemptible                 = false
+            resource_labels             = {}
+            resource_manager_tags       = {}
+            service_account             = "cluster-model-serving@voiceai-staging.iam.gserviceaccount.com"
+            spot                        = false
+            storage_pools               = []
+            tags                        = []
+
+            kubelet_config {
+                cpu_cfs_quota                          = false
+                cpu_cfs_quota_period                   = null
+                cpu_manager_policy                     = null
+                insecure_kubelet_readonly_port_enabled = "TRUE"
+                pod_pids_limit                         = 0
+            }
+
+            shielded_instance_config {
+                enable_integrity_monitoring = true
+                enable_secure_boot          = false
+            }
+
+            workload_metadata_config {
+                mode = "GKE_METADATA"
+            }
+        }
+
+        upgrade_settings {
+            max_surge       = 1
+            max_unavailable = 0
+            strategy        = "SURGE"
+        }
+    }
+
+    node_pool_defaults {
+        node_config_defaults {
+            insecure_kubelet_readonly_port_enabled = "FALSE"
+            logging_variant                        = "DEFAULT"
+        }
+    }
+
+    notification_config {
+        pubsub {
+            enabled = true
+            topic   = "projects/voiceai-staging/topics/notifications-gke"
+        }
+    }
+
+    private_cluster_config {
+        enable_private_endpoint     = false
+        enable_private_nodes        = false
+        master_ipv4_cidr_block      = null
+        peering_name                = null
+        private_endpoint            = "10.128.0.36"
+        private_endpoint_subnetwork = null
+        public_endpoint             = "34.123.142.149"
+
+        master_global_access_config {
+            enabled = false
+        }
+    }
+
+    release_channel {
+        channel = "UNSPECIFIED"
+    }
+
+    secret_manager_config {
+        enabled = false
+    }
+
+    security_posture_config {
+        mode               = "BASIC"
+        vulnerability_mode = "VULNERABILITY_BASIC"
+    }
+
+    service_external_ips_config {
+        enabled = false
+    }
+
+    workload_identity_config {
+        workload_pool = "voiceai-staging.svc.id.goog"
+    }
+}

@@ -1,0 +1,104 @@
+# module.gcp.module.k8s.module.model-serving.module.us-east4.google_container_node_pool.pool["c3-highcpu-22-preempt"]:
+resource "google_container_node_pool" "pool" {
+    cluster                     = "model-serving"
+    id                          = "projects/voiceai-staging/locations/us-east4/clusters/model-serving/nodePools/c3-highcpu-22-preempt"
+    initial_node_count          = 1
+    instance_group_urls         = [
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-east4-a/instanceGroupManagers/gke-model-serving-c3-highcpu-22-preem-f1470694-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-east4-b/instanceGroupManagers/gke-model-serving-c3-highcpu-22-preem-4304da83-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-east4-c/instanceGroupManagers/gke-model-serving-c3-highcpu-22-preem-3c766684-grp",
+    ]
+    location                    = "us-east4"
+    managed_instance_group_urls = [
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-east4-a/instanceGroups/gke-model-serving-c3-highcpu-22-preem-f1470694-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-east4-b/instanceGroups/gke-model-serving-c3-highcpu-22-preem-4304da83-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-east4-c/instanceGroups/gke-model-serving-c3-highcpu-22-preem-3c766684-grp",
+    ]
+    max_pods_per_node           = 110
+    name                        = "c3-highcpu-22-preempt"
+    name_prefix                 = null
+    node_count                  = 0
+    node_locations              = [
+        "us-east4-a",
+        "us-east4-b",
+        "us-east4-c",
+    ]
+    project                     = "voiceai-staging"
+    version                     = "1.28.15-gke.1020000"
+
+    autoscaling {
+        location_policy      = "ANY"
+        max_node_count       = 1
+        min_node_count       = 0
+        total_max_node_count = 0
+        total_min_node_count = 0
+    }
+
+    management {
+        auto_repair  = true
+        auto_upgrade = false
+    }
+
+    network_config {
+        create_pod_range     = false
+        enable_private_nodes = false
+        pod_ipv4_cidr_block  = "10.44.0.0/14"
+        pod_range            = "gke-model-serving-pods-4da5d9c4"
+    }
+
+    node_config {
+        boot_disk_kms_key           = null
+        disk_size_gb                = 100
+        disk_type                   = "pd-balanced"
+        effective_taints            = []
+        enable_confidential_storage = false
+        image_type                  = "COS_CONTAINERD"
+        labels                      = {
+            "cluster"   = "model-serving"
+            "component" = "ai"
+            "feature"   = "external"
+            "team"      = "ai_eng"
+        }
+        local_ssd_count             = 0
+        logging_variant             = "DEFAULT"
+        machine_type                = "c3-highcpu-22"
+        metadata                    = {
+            "disable-legacy-endpoints" = "true"
+        }
+        min_cpu_platform            = null
+        node_group                  = null
+        oauth_scopes                = [
+            "https://www.googleapis.com/auth/cloud-platform",
+        ]
+        preemptible                 = true
+        resource_labels             = {}
+        resource_manager_tags       = {}
+        service_account             = "cluster-model-serving@voiceai-staging.iam.gserviceaccount.com"
+        spot                        = false
+        storage_pools               = []
+        tags                        = []
+
+        kubelet_config {
+            cpu_cfs_quota                          = false
+            cpu_cfs_quota_period                   = null
+            cpu_manager_policy                     = null
+            insecure_kubelet_readonly_port_enabled = "TRUE"
+            pod_pids_limit                         = 0
+        }
+
+        shielded_instance_config {
+            enable_integrity_monitoring = true
+            enable_secure_boot          = false
+        }
+
+        workload_metadata_config {
+            mode = "GKE_METADATA"
+        }
+    }
+
+    upgrade_settings {
+        max_surge       = 1
+        max_unavailable = 0
+        strategy        = "SURGE"
+    }
+}
