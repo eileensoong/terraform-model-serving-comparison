@@ -1,21 +1,21 @@
-# module.gcp.module.k8s.module.model-serving.module.us-east4.google_container_node_pool.pool["c3-highcpu-22-nonpreempt"]:
+# module.gcp.module.model-serving.module.gke-model-serving-us-east4.google_container_node_pool.pool["c3-highcpu-22-nonspot"]:
 resource "google_container_node_pool" "pool" {
     cluster                     = "model-serving"
-    id                          = "projects/voiceai-staging/locations/us-east4/clusters/model-serving/nodePools/c3-highcpu-22-nonpreempt"
+    id                          = "projects/voiceai-staging/locations/us-east4/clusters/model-serving/nodePools/c3-highcpu-22-nonspot"
     initial_node_count          = 1
     instance_group_urls         = [
-        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-east4-a/instanceGroupManagers/gke-model-serving-c3-highcpu-22-nonpr-9c3f6a2b-grp",
-        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-east4-b/instanceGroupManagers/gke-model-serving-c3-highcpu-22-nonpr-ad2ac853-grp",
-        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-east4-c/instanceGroupManagers/gke-model-serving-c3-highcpu-22-nonpr-8c66dcc3-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-east4-a/instanceGroupManagers/gke-model-serving-c3-highcpu-22-nonsp-b6815637-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-east4-b/instanceGroupManagers/gke-model-serving-c3-highcpu-22-nonsp-9c7f99c5-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-east4-c/instanceGroupManagers/gke-model-serving-c3-highcpu-22-nonsp-0c9c66d4-grp",
     ]
     location                    = "us-east4"
     managed_instance_group_urls = [
-        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-east4-a/instanceGroups/gke-model-serving-c3-highcpu-22-nonpr-9c3f6a2b-grp",
-        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-east4-b/instanceGroups/gke-model-serving-c3-highcpu-22-nonpr-ad2ac853-grp",
-        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-east4-c/instanceGroups/gke-model-serving-c3-highcpu-22-nonpr-8c66dcc3-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-east4-a/instanceGroups/gke-model-serving-c3-highcpu-22-nonsp-b6815637-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-east4-b/instanceGroups/gke-model-serving-c3-highcpu-22-nonsp-9c7f99c5-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-east4-c/instanceGroups/gke-model-serving-c3-highcpu-22-nonsp-0c9c66d4-grp",
     ]
     max_pods_per_node           = 110
-    name                        = "c3-highcpu-22-nonpreempt"
+    name                        = "c3-highcpu-22-nonspot"
     name_prefix                 = null
     node_count                  = 0
     node_locations              = [
@@ -27,23 +27,23 @@ resource "google_container_node_pool" "pool" {
     version                     = "1.28.15-gke.1020000"
 
     autoscaling {
-        location_policy      = "BALANCED"
-        max_node_count       = 1
+        location_policy      = "ANY"
+        max_node_count       = 0
         min_node_count       = 0
-        total_max_node_count = 0
+        total_max_node_count = 160
         total_min_node_count = 0
     }
 
     management {
         auto_repair  = true
-        auto_upgrade = false
+        auto_upgrade = true
     }
 
     network_config {
         create_pod_range     = false
         enable_private_nodes = false
         pod_ipv4_cidr_block  = "10.44.0.0/14"
-        pod_range            = "gke-model-serving-pods-4da5d9c4"
+        pod_range            = "gke-model-serving-pods-f79ef29f"
     }
 
     node_config {
@@ -71,7 +71,12 @@ resource "google_container_node_pool" "pool" {
             "https://www.googleapis.com/auth/cloud-platform",
         ]
         preemptible                 = false
-        resource_labels             = {}
+        resource_labels             = {
+            "cluster"   = "model-serving"
+            "component" = "ai"
+            "feature"   = "external"
+            "team"      = "ai_eng"
+        }
         resource_manager_tags       = {}
         service_account             = "cluster-model-serving@voiceai-staging.iam.gserviceaccount.com"
         spot                        = false
@@ -97,8 +102,8 @@ resource "google_container_node_pool" "pool" {
     }
 
     upgrade_settings {
-        max_surge       = 1
-        max_unavailable = 0
+        max_surge       = 0
+        max_unavailable = 1
         strategy        = "SURGE"
     }
 }

@@ -1,21 +1,21 @@
-# module.gcp.module.k8s.module.model-serving.module.us-central1.google_container_node_pool.pool["g2-preempt"]:
+# module.gcp.module.model-serving.module.gke-model-serving-us-central1.google_container_node_pool.pool["g2-standard-24-spot"]:
 resource "google_container_node_pool" "pool" {
     cluster                     = "model-serving"
-    id                          = "projects/voiceai-staging/locations/us-central1/clusters/model-serving/nodePools/g2-preempt"
+    id                          = "projects/voiceai-staging/locations/us-central1/clusters/model-serving/nodePools/g2-standard-24-spot"
     initial_node_count          = 1
     instance_group_urls         = [
-        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroupManagers/gke-model-serving-g2-preempt-8858e2ea-grp",
-        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroupManagers/gke-model-serving-g2-preempt-8f88fc3f-grp",
-        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroupManagers/gke-model-serving-g2-preempt-02eab0ce-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroupManagers/gke-model-serving-g2-standard-24-spot-8a532a5a-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroupManagers/gke-model-serving-g2-standard-24-spot-f3b81609-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroupManagers/gke-model-serving-g2-standard-24-spot-6a5c2942-grp",
     ]
     location                    = "us-central1"
     managed_instance_group_urls = [
-        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroups/gke-model-serving-g2-preempt-8858e2ea-grp",
-        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroups/gke-model-serving-g2-preempt-8f88fc3f-grp",
-        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroups/gke-model-serving-g2-preempt-02eab0ce-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-a/instanceGroups/gke-model-serving-g2-standard-24-spot-8a532a5a-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-b/instanceGroups/gke-model-serving-g2-standard-24-spot-f3b81609-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-central1-c/instanceGroups/gke-model-serving-g2-standard-24-spot-6a5c2942-grp",
     ]
     max_pods_per_node           = 110
-    name                        = "g2-preempt"
+    name                        = "g2-standard-24-spot"
     name_prefix                 = null
     node_count                  = 0
     node_locations              = [
@@ -28,15 +28,15 @@ resource "google_container_node_pool" "pool" {
 
     autoscaling {
         location_policy      = "ANY"
-        max_node_count       = 1
+        max_node_count       = 0
         min_node_count       = 0
-        total_max_node_count = 0
+        total_max_node_count = 64
         total_min_node_count = 0
     }
 
     management {
         auto_repair  = true
-        auto_upgrade = false
+        auto_upgrade = true
     }
 
     network_config {
@@ -76,11 +76,16 @@ resource "google_container_node_pool" "pool" {
         oauth_scopes                = [
             "https://www.googleapis.com/auth/cloud-platform",
         ]
-        preemptible                 = true
-        resource_labels             = {}
+        preemptible                 = false
+        resource_labels             = {
+            "cluster"   = "model-serving"
+            "component" = "ai"
+            "feature"   = "external"
+            "team"      = "ai_eng"
+        }
         resource_manager_tags       = {}
         service_account             = "cluster-model-serving@voiceai-staging.iam.gserviceaccount.com"
-        spot                        = false
+        spot                        = true
         storage_pools               = []
         tags                        = []
 
@@ -115,8 +120,8 @@ resource "google_container_node_pool" "pool" {
     }
 
     upgrade_settings {
-        max_surge       = 1
-        max_unavailable = 0
+        max_surge       = 0
+        max_unavailable = 1
         strategy        = "SURGE"
     }
 }
