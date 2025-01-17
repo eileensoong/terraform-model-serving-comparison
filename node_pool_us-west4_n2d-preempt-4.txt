@@ -1,23 +1,23 @@
-# module.gcp.module.k8s.module.model-serving.module.us-west4.google_container_node_pool.pool["n2d-preempt-4"]:
+# module.gcp.module.model-serving.module.gke-model-serving-us-west4.google_container_node_pool.pool["n2d-standard-4-spot"]:
 resource "google_container_node_pool" "pool" {
     cluster                     = "model-serving"
-    id                          = "projects/voiceai-staging/locations/us-west4/clusters/model-serving/nodePools/n2d-preempt-4"
+    id                          = "projects/voiceai-staging/locations/us-west4/clusters/model-serving/nodePools/n2d-standard-4-spot"
     initial_node_count          = 1
     instance_group_urls         = [
-        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-west4-a/instanceGroupManagers/gke-model-serving-n2d-preempt-4-b7a81cf7-grp",
-        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-west4-b/instanceGroupManagers/gke-model-serving-n2d-preempt-4-805d4dcf-grp",
-        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-west4-c/instanceGroupManagers/gke-model-serving-n2d-preempt-4-b6e8a513-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-west4-a/instanceGroupManagers/gke-model-serving-n2d-standard-4-spot-4d5067f0-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-west4-b/instanceGroupManagers/gke-model-serving-n2d-standard-4-spot-d08738cb-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-west4-c/instanceGroupManagers/gke-model-serving-n2d-standard-4-spot-597c51cb-grp",
     ]
     location                    = "us-west4"
     managed_instance_group_urls = [
-        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-west4-a/instanceGroups/gke-model-serving-n2d-preempt-4-b7a81cf7-grp",
-        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-west4-b/instanceGroups/gke-model-serving-n2d-preempt-4-805d4dcf-grp",
-        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-west4-c/instanceGroups/gke-model-serving-n2d-preempt-4-b6e8a513-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-west4-a/instanceGroups/gke-model-serving-n2d-standard-4-spot-4d5067f0-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-west4-b/instanceGroups/gke-model-serving-n2d-standard-4-spot-d08738cb-grp",
+        "https://www.googleapis.com/compute/v1/projects/voiceai-staging/zones/us-west4-c/instanceGroups/gke-model-serving-n2d-standard-4-spot-597c51cb-grp",
     ]
     max_pods_per_node           = 110
-    name                        = "n2d-preempt-4"
+    name                        = "n2d-standard-4-spot"
     name_prefix                 = null
-    node_count                  = 1
+    node_count                  = 0
     node_locations              = [
         "us-west4-a",
         "us-west4-b",
@@ -28,22 +28,22 @@ resource "google_container_node_pool" "pool" {
 
     autoscaling {
         location_policy      = "ANY"
-        max_node_count       = 3
+        max_node_count       = 0
         min_node_count       = 0
-        total_max_node_count = 0
+        total_max_node_count = 3
         total_min_node_count = 0
     }
 
     management {
         auto_repair  = true
-        auto_upgrade = false
+        auto_upgrade = true
     }
 
     network_config {
         create_pod_range     = false
         enable_private_nodes = false
         pod_ipv4_cidr_block  = "10.96.0.0/14"
-        pod_range            = "gke-model-serving-pods-76fa98db"
+        pod_range            = "gke-model-serving-pods-e6e7f838"
     }
 
     node_config {
@@ -70,11 +70,16 @@ resource "google_container_node_pool" "pool" {
         oauth_scopes                = [
             "https://www.googleapis.com/auth/cloud-platform",
         ]
-        preemptible                 = true
-        resource_labels             = {}
+        preemptible                 = false
+        resource_labels             = {
+            "cluster"   = "model-serving"
+            "component" = "ai"
+            "feature"   = "external"
+            "team"      = "ai_eng"
+        }
         resource_manager_tags       = {}
         service_account             = "cluster-model-serving@voiceai-staging.iam.gserviceaccount.com"
-        spot                        = false
+        spot                        = true
         storage_pools               = []
         tags                        = []
 
@@ -97,8 +102,8 @@ resource "google_container_node_pool" "pool" {
     }
 
     upgrade_settings {
-        max_surge       = 1
-        max_unavailable = 0
+        max_surge       = 0
+        max_unavailable = 1
         strategy        = "SURGE"
     }
 }
